@@ -1,55 +1,97 @@
+# Artificial Intelligence Engineer Nanodegree
+## Game-Playing Agents
+### Project: Sign Language Recognition System
 
-# Build a Game-playing Agent
+![Example game of isolation](viz.gif)
 
-## Synopsis
+In this project, I developed an adversarial search agent to play the game "Isolation".  Isolation is a deterministic, two-player game of perfect information in which the players alternate turns moving a single piece from one cell to another on a board.  Whenever either player occupies a cell, that cell becomes blocked for the remainder of the game.  The first player with no remaining legal moves loses, and the opponent is declared the winner.  These rules are implemented by Udacity in the `isolation.Board` class provided in the repository. 
 
-This project includes skeletons for the classes and functions that you need to implement to develop an adversarial search agent to play the game "Isolation".  We have also included example players and evaluation classes for you to review and test against.
-
-Isolation is a deterministic, two-player game of perfect information in which the players alternate turns moving a single piece from one cell to another on a board.  Whenever either player occupies a cell, that cell becomes blocked for the remainder of the game.  The first player with no remaining legal moves loses, and the opponent is declared the winner.
-
-In this project, we will play a version of Isolation where each agent is restricted to L-shaped movements (like a knight in chess) on a rectangular grid (like a chess or checkerboard).  The agents can move to any open cell on the board that is 2-rows and 1-column or 2-columns and 1-row away from their current position on the board. (Movements are blocked at the edges of the board -- there is no wrap around.)
+This project uses a version of Isolation where each agent is restricted to L-shaped movements (like a knight in chess) on a rectangular grid (like a chess or checkerboard).  The agents can move to any open cell on the board that is 2-rows and 1-column or 2-columns and 1-row away from their current position on the board. Movements are blocked at the edges of the board (the board does not wrap around), however, the player can "jump" blocked or occupied spaces (just like a knight in chess).
 
 Additionally, agents will have a fixed time limit each turn to search for the best move and respond.  If the time limit expires during a player's turn, that player forfeits the match, and the opponent wins.
 
-These rules are implemented for you in the `isolation.Board` class provided in the repository. The `Board` class exposes an API including `is_winner()`, `is_loser()`, `get_legal_moves()`, and other methods available for your agent to use.
+I only needed to modify code in the `game_agent.py` file to complete the project.  Additional files include example Player and evaluation functions, the game board class, and a template to develop local unit tests.  
 
-You may write or modify code within each file (as long as you maintain compatibility with the function signatures provided) and you may add other classes, functions, etc., as you need.
+## Getting Started
+
+To get this code on your machine you can fork the repo or open a terminal and run this command.
+```sh
+git clone https://github.com/JonathanKSullivan/Sign-Language-Recognizer.git
+```
+
+### Prerequisites
+
+This project requires **Python 3** and the following Python libraries installed:
+
+- [NumPy](http://www.numpy.org/)
+- [SciPy](https://www.scipy.org/)
+- [scikit-learn](http://scikit-learn.org/0.17/install.html)
+- [pandas](http://pandas.pydata.org/)
+- [matplotlib](http://matplotlib.org/)
+- [jupyter](http://ipython.org/notebook.html)
+
+##### Notes: 
+1. It is highly recommended that you install the [Anaconda](http://continuum.io/downloads) distribution of Python and load the environment included below.
+I used pygame to help me visualize mu programs so that I have beautiful visualizations of AI I can share with others in your portfolio. However, pygame is optional as it can be tricky to install. 
+
+### Installing
+#### Mac OS X and Linux
+1. Download the `aind-environment-unix.yml/aind-environment-unix.yml`/`aind-environment-osx.yml` file at the bottom of this section.
+2. Run `conda env create -f aind-environment-unix.yml`(or `aind-environment-osx.yml`) to create the environment.
+then source activate aind to enter the environment.
+
+#### Windows
+1. Download the `aind-environment-windows.yml` file at the bottom of this section.
+2. `conda env create -f aind-environment-windows.yml` to create the environment.
+then activate aind to enter the environment.
 
 
-## Implementation
+#### Optional: Install Pygame
+I used pygame to help you visualize my programs so that I have beautiful visualizations of AI I can share with others in my portfolio. 
+##### Mac OS X
+1. Install [homebrew](http://brew.sh/)
+2. `brew install sdl sdl_image sdl_mixer sdl_ttf portmidi mercurial`
+3. `source activate aind`
+4. `pip install pygame`
+Some users have reported that pygame is not properly initialized on OSX until you also run `python -m pygame.tests`.
 
-### Adversarial Search
-
-You must first implement the minimax algorithm, then implement alpha-beta pruning for minimax, and finally incorporate iterative deepening.  Detailed descriptions of these topics are presented in the lectures.  You will implement them in the `game_agent.CustomPlayer` class under the `minimax()`, `alphabeta()`, and `get_moves()` methods, respectively.  The class constructor takes arguments that specify whether to call minimax or alphabeta search, and whether to use fixed-depth search or iterative deepening. These will be used, along with a function that you will use to determine how much time remains before the search will time out, in the `get_moves()` method.
-
-The required interface specifications can be found in the docstrings for each function.  Note that you are allowed to modify the interface of the minimax and alphabeta functions, and add new functions/methods/classes to the file.  However, if you modify the input interface of any function, it must remain compatible with the interface provided, so you will need to include suitable default parameters.
-
-
-### Evaluation Functions
-
-You will need to develop heuristic functions to inform the value judgements your AI will make when choosing moves.  We have provided implementations in sample_players.py of the heuristic functions described in lecture in the `OpenMoveEval` and `ImprovedEval` classes, as well as a `NullEval` class to use in testing.  You are required to experiment with the `custom_score` to come up with at least three distinct heuristic functions that you will compare in your report.  Please note that you are not required to find a _better_ heuristic than those provided -- but you do need to explain why your heuristics are good choices, and compare them to the baseline heuristics we provide, and each other.
-
-We have provided a script called `tournament.py` that you will use to evaluate and compare your heuristic functions by testing your agent & heuristic against agent configuations that we specify in the tournament script.  The script plays your agent against each one of the test agents - which have all been ranked with a calibrated Elo score (a skill rating system used in many games) - to determine the relative strength of your heuristic and search algorithm.  You will need the score returned by this script for each of your evaluation functions to include in your report.
-
-You may also modify the tournament script to compare your heuristic functions directly against one another, but those score will not be calibrated relative to the other known agents, so they aren't required for the report. (It could still prove useful for testing to build an overall stronger agent.)
+Windows and Linux
+1. `pip install pygame`
+2. In Windows, an alternate method is to install a precompiled binary wheel:
+    1. Download the appropriate `pygame-1.9.3-yourpythonwindows.whl` file from here
+    2. Install with `pip install pygame-1.9.3-yourpythonwindows.whl`.
 
 
-## Testing
+Download the one of the following yml files:
+[aind-environment-osx.yml](https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ee7e68_aind-environment-macos/aind-environment-macos.yml)
+[aind-environment-unix.yml](https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ee7eff_aind-environment-unix/aind-environment-unix.yml)
+[aind-environment-windows.yml](https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ee7f6c_aind-environment-windows/aind-environment-windows.yml)
 
-### Test Players
+## Running the tests
 
-We have also provided `sample_players.py` containing 3 player classes for you to test against locally:
+Test are included in notebook. To run test from terminal, navigate to project directory and run 
+```sh
+    agent_test.py
+```
 
-- `RandomPlayer` - randomly selects a move from among the available legal moves
-- `GreedyPlayer` - selects the next legal move with the highest heuristic value
-- `HumanPlayer`  - allows *YOU* to play against the AI through the terminal
+## Deployment
+##### Game Visualization
+The isoviz folder contains a modified version of chessboard.js that can animate games played on a 7x7 board. In order to use the board, you must run a local webserver by running python -m http.server 8000 from your project directory (you can replace 8000 with another port number if that one is unavailable), then open your browser to http://localhost:8000 and navigate to the /isoviz/display.html page. Enter the move history of an isolation match (i.e., the array returned by the Board.play() method) into the text area and run the match. Refresh the page to run a different game. (Feel free to submit pull requests with improvements to isoviz.)
 
-You **DO NOT** need to submit these players (nor should you), however feel free to change these classes as you see fit during development. Just know that any changes you make will be solely for the benefit of your own tests, and will not be available to the project reviewers.
+##### Agent vs NPC Competition 
+To see the outcome of my agent performing against other agents
+run `tournament.py`
 
-### Unit Tests
+## Built With
 
-The `agent_test.py` script contains unittest test cases to evaluate your implementations.  The test cases evaluate your functions compared to a static set of example game trees to verify that the correct output is returned, and that each algorithm visits an expected number of nodes during search.
+* [Jupyter](http://www.http://jupyter.org/) - The Document Editor used
+* [Anaconda](https://www.continuum.io/downloads) - The data science platform used
 
-### Tournament
 
-The `tournament.py` script will run a round-robin tournament between your CustomPlayer agent with itertive deepening and your custom heuristic function against several calibrated agent configurations using fixed-depth minimax and alpha-beta search with the example heuristics provided in `sample_players.py`.
+## Authors
+* **Udacity** - *Initial work* - [AIND-Isolation](https://github.com/udacity/AIND-Isolation)
+* **Jonathan Sulivan**
+
+## Acknowledgments
+* Hackbright Academy
+* Udacity
